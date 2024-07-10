@@ -8,6 +8,5 @@ import java.time.LocalDate;
 public class Cliente extends Usuario {
 
     private String cpf;
-    private LocalDate dataNascimento;
 }
 

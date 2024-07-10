@@ -4,7 +4,11 @@ public class ComprarIngressoRequest {
     private Long filmeId;
     private Long usuarioId;
     private int quantidade;
+    private String codigo;
+    private double preco;
+    private String horario;
 
+    // Getters e Setters
     public Long getFilmeId() {
         return filmeId;
     }
@@ -27,5 +31,29 @@ public class ComprarIngressoRequest {
 
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    public double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(double preco) {
+        this.preco = preco;
+    }
+
+    public String getHorario() {
+        return horario;
+    }
+
+    public void setHorario(String horario) {
+        this.horario = horario;
     }
 }

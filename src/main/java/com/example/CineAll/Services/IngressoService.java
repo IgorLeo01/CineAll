@@ -1,6 +1,6 @@
 package com.example.CineAll.Services;
 
-import com.example.CineAll.Models.Cliente;
+import com.example.CineAll.Models.DTOs.UsuarioIngressosDTO;
 import com.example.CineAll.Models.Filme;
 import com.example.CineAll.Models.Ingresso;
 import com.example.CineAll.Models.Usuario;
@@ -10,6 +10,7 @@ import com.example.CineAll.Repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -23,29 +24,41 @@ public class IngressoService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public Ingresso comprarIngresso(Long filmeId, Long usuarioId, int quantidade) throws Exception {
+    public Ingresso comprarIngresso(Long filmeId, Long usuarioId, int quantidade, String codigo, double preco, String horario) throws Exception {
         Filme filme = filmeRepository.findById(filmeId)
                 .orElseThrow(() -> new Exception("Filme não encontrado"));
 
         Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new Exception("Cliente não encontrado"));
 
-        if (filme.getQuantidadeDisponivel() < quantidade) {
+        if (filme.getQuantidadeIngressosDisponivel() < quantidade) {
             throw new Exception("Quantidade de ingressos indisponível");
         }
 
-        filme.setQuantidadeDisponivel(filme.getQuantidadeDisponivel() - quantidade);
+        filme.setQuantidadeIngressosDisponivel(filme.getQuantidadeIngressosDisponivel() - quantidade);
         filmeRepository.save(filme);
 
         Ingresso ingresso = new Ingresso();
         ingresso.setFilme(filme);
         ingresso.setUsuario(usuario);
         ingresso.setQuantidade(quantidade);
+        ingresso.setCodigo("COD" + String.format("%04d", ingresso.getId()));
+        ingresso.setPreco(preco);
+        ingresso.setHorario(horario);
 
         return ingressoRepository.save(ingresso);
     }
 
-    public List<Ingresso> listarIngressosPorCliente(Long usuarioId) {
-        return ingressoRepository.findByUsuarioId(usuarioId);
+    public UsuarioIngressosDTO listarIngressosPorCliente(Long usuarioId) {
+        Usuario usuario = usuarioRepository.findById(usuarioId)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        UsuarioIngressosDTO usuarioDTO = new UsuarioIngressosDTO();
+        usuarioDTO.setId(usuario.getId());
+        usuarioDTO.setNome(usuario.getNome());
+        usuarioDTO.setIngressos(usuario.getIngressos());
+
+        return usuarioDTO;
     }
+
 }

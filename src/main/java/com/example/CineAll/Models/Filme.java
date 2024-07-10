@@ -1,11 +1,11 @@
 package com.example.CineAll.Models;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 @Entity
@@ -19,6 +19,10 @@ public class Filme {
     private int duracao;
     private String imagem;
     private int quantidadeIngressos;
-    private int quantidadeDisponivel;
+    private int quantidadeIngressosDisponivel;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "filme")
+    private List<Ingresso> ingressos;
 }
 
