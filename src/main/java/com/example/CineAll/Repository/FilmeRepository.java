@@ -1,2 +1,8 @@
-package com.example.CineAll.Repository;public interface FilmeRepository {
+package com.example.CineAll.Repository;
+
+import com.example.CineAll.Models.Filme;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface FilmeRepository extends JpaRepository<Filme, Long> {
 }
+
