@@ -18,11 +18,15 @@ public class Filme {
     private String genero;
     private int duracao;
     private String imagem;
+    private String sala;
     private int quantidadeIngressos;
     private int quantidadeIngressosDisponivel;
+    private String horario;
 
     @JsonIgnore
     @OneToMany(mappedBy = "filme")
     private List<Ingresso> ingressos;
+
+
 }
 

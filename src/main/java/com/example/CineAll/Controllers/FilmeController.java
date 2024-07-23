@@ -28,6 +28,11 @@ public class FilmeController {
         return filmeService.CadastrarFilme(filme);
     }
 
+    @PutMapping("/{id}")
+    public Filme atualizarFilme(@PathVariable Long id, @RequestBody Filme filme) {
+        return filmeService.atualizarFilme(id, filme);
+    }
+
     @DeleteMapping("/{id}")
     public void deletarFilme(@PathVariable Long id) {
         filmeService.deletarFilme(id);

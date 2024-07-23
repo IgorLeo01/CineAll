@@ -17,8 +17,12 @@ public class UsuarioService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
+
     public Usuario salvarUsuario(Usuario usuario) {
         usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
+        if (usuario.getRole() == null || usuario.getRole().isEmpty()) {
+            usuario.setRole("USUARIO");
+        }
         return usuarioRepository.save(usuario);
     }
 

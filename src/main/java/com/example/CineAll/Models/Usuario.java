@@ -1,4 +1,5 @@
 package com.example.CineAll.Models;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -17,8 +18,10 @@ public class Usuario {
     private String nome;
     private String email;
     private String senha;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate dataNascimento;
     private String role;
+    private String cpf;
 
 
     @JsonIgnore

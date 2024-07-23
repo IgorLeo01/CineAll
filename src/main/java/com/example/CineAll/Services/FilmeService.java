@@ -20,6 +20,15 @@ public class FilmeService {
         return filmeRepository.findAll();
     }
 
+    public Filme atualizarFilme(Long id, Filme filme) {
+        if (filmeRepository.existsById(id)) {
+            filme.setId(id);
+            return filmeRepository.save(filme);
+        } else {
+            return null;
+        }
+    }
+
     public Filme buscarPorId(Long id) {
         return filmeRepository.findById(id).orElse(null);
     }

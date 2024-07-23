@@ -42,7 +42,6 @@ public class AuthenticationController {
         Usuario usuario = userDetailsOptional
                 .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
 
-
         if (!passwordEncoder.matches(data.getSenha(), usuario.getSenha())) {
             throw new UsernameNotFoundException("Senha incorreta");
         }

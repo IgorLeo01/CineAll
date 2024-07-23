@@ -26,7 +26,7 @@ public class AuthorizationService implements UserDetailsService {
 
         if (usuarioOptional.isPresent()) {
             Usuario usuario = usuarioOptional.get();
-            List<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList("ROLE_" + usuario.getClass().getSimpleName().toUpperCase());
+            List<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList("ROLE_" + usuario.getRole().toUpperCase());
 
             return new User(username, usuario.getSenha(), authorities);
         } else {
